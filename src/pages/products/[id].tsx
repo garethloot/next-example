@@ -6,6 +6,8 @@ import ImageCarousel from "@/components/image_carousel";
 import { toPrice } from "@/helpers/to_price";
 import { useDispatch } from "react-redux";
 import { addItem } from "@/store/cart";
+import BreadCrump from "@/components/breadcrump";
+import PageHeader from "@/components/page_header";
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ data }) => {
   const dispatch = useDispatch();
@@ -30,6 +32,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ data }) => {
   };
   return (
     <PageContainer>
+      <PageHeader title={product.title}>
+        <BreadCrump
+          paths={[
+            { title: "Home", href: "/" },
+            { title: "Products", href: "/products" },
+            { title: product.title },
+          ]}
+        />
+      </PageHeader>
       <div className="md:flex space-x-4">
         <div className="card bg-base-100 shadow-xl mb-10 flex-1">
           <div className="card-body">

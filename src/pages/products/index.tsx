@@ -3,11 +3,16 @@ import Products from "src/components/products";
 import PageContainer from "@/components/page_container";
 import PageHeader from "@/components/page_header";
 import { ProductOverviewProps } from "@/types/pages/products_overview";
+import BreadCrump from "@/components/breadcrump";
 
 const ProductOverview: React.FC<ProductOverviewProps> = ({ data }) => {
   return (
     <PageContainer>
-      <PageHeader title="Products" subtitle="" />
+      <PageHeader title="Products">
+        <BreadCrump
+          paths={[{ title: "Home", href: "/" }, { title: "Products" }]}
+        />
+      </PageHeader>
       <Products products={data.products} />
     </PageContainer>
   );
