@@ -5,8 +5,8 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=optional"
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0&display=optional"
       />
       <body>
         <Main />

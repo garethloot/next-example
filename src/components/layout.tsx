@@ -32,7 +32,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             htmlFor="cart-drawer"
             className="drawer-overlay"
           ></label>
-          <div className="menu p-4 w-96 bg-base-100 text-base-content">
+          <div className="menu p-4 w-96 h-fit bg-base-100 text-base-content">
             <div className="flex items-center">
               <button
                 onClick={onHideCart}

@@ -31,6 +31,20 @@ const incrementQuantity = (item: CartItem) => {
   return item;
 };
 
+const decrimentQuantity = (item: CartItem) => {
+  if (item.quantity < 2) return item;
+  item.quantity = item.quantity - 1;
+  item.totalPrice = item.quantity * item.price;
+  return item;
+};
+
+const setQuantity = (item: CartItem, quantity: number) => {
+  if (quantity < 1) return item;
+  item.quantity = quantity;
+  item.totalPrice = item.quantity * item.price;
+  return item;
+};
+
 const cartTotalPrice = (items: CartItem[]): number => {
   return items.reduce((prev, current) => {
     return prev + current.totalPrice;
@@ -72,6 +86,29 @@ const cartSlice = createSlice({
       });
       state.totalPrice = cartTotalPrice(state.items);
     },
+    decrimentItemQuantity(state, action: PayloadAction<{ productId: number }>) {
+      const { productId } = action.payload;
+      state.items = state.items.map((item) => {
+        if (item.productId === productId) {
+          return decrimentQuantity(item);
+        }
+        return item;
+      });
+      state.totalPrice = cartTotalPrice(state.items);
+    },
+    setItemQuantity(
+      state,
+      action: PayloadAction<{ productId: number; quantity: number }>
+    ) {
+      const { productId, quantity } = action.payload;
+      state.items = state.items.map((item) => {
+        if (item.productId === productId) {
+          return setQuantity(item, quantity);
+        }
+        return item;
+      });
+      state.totalPrice = cartTotalPrice(state.items);
+    },
     showCart(state, action: PayloadAction) {
       state.show = true;
     },
@@ -88,6 +125,8 @@ export const {
   addItem,
   removeItem,
   incrementItemQuantity,
+  decrimentItemQuantity,
+  setItemQuantity,
   showCart,
   hideCart,
   toggleCart,
