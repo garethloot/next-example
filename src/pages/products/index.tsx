@@ -1,23 +1,22 @@
 import React, { ReactNode } from "react";
+import Products from "src/components/products";
+import PageContainer from "@/components/page_container";
+import PageHeader from "@/components/page_header";
+import { ProductOverviewProps } from "@/types/pages/products_overview";
 
-type ProductOverviewProps = {
-  children: ReactNode;
-  data: [];
-};
-
-const ProductOverview: React.FC<ProductOverviewProps> = ({
-  children,
-  data,
-}) => {
-  return <div>{children}</div>;
+const ProductOverview: React.FC<ProductOverviewProps> = ({ data }) => {
+  return (
+    <PageContainer>
+      <PageHeader title="Products" subtitle="" />
+      <Products products={data.products} />
+    </PageContainer>
+  );
 };
 
 export const getServerSideProps = async () => {
-  // Fetch data from external API
-  const res = await fetch(`https://.../data`);
+  const res = await fetch(`https://dummyjson.com/products`);
   const data = await res.json();
 
-  // Pass data to the page via props
   return { props: { data } };
 };
 
