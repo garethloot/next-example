@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideCart } from "@/store/cart";
 import { RootState } from "@/store/store";
 import CartOverview from "./cart_overview";
-import Head from "next/head";
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { cart } = useSelector((state: RootState) => state);
@@ -15,7 +14,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
   return (
     <div>
-      <Nav />
       <main className="drawer drawer-end">
         <input
           id="cart-drawer"
@@ -23,7 +21,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           className="drawer-toggle"
           checked={cart.show}
         />
-        <div className="drawer-content xl:container xl:mx-auto space-y-4">
+        <div className="drawer-content xl:container xl:mx-auto">
+          <Nav />
           {children}
         </div>
         <div className="drawer-side">
@@ -32,7 +31,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             htmlFor="cart-drawer"
             className="drawer-overlay"
           ></label>
-          <div className="menu p-4 w-96 h-fit bg-base-100 text-base-content">
+          <div className="menu p-4 w-96 h-screen bg-base-100 text-base-content">
             <div className="flex items-center">
               <button
                 onClick={onHideCart}

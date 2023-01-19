@@ -2,17 +2,31 @@ import { ProductDetailProps } from "@/types/pages/products_detail";
 import PageContainer from "@/components/page_container";
 import { GetServerSidePropsContext } from "next";
 import { Product } from "@/types/model/product";
-import PageHeader from "@/components/page_header";
 import ImageCarousel from "@/components/image_carousel";
 import { toPrice } from "@/helpers/to_price";
+import { useDispatch } from "react-redux";
+import { addItem } from "@/store/cart";
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ data }) => {
+  const dispatch = useDispatch();
   const { product } = data;
 
   const price = toPrice(product.price, "nl-NL", "EUR");
 
   const buyNow = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    dispatch(
+      addItem({
+        item: {
+          productId: product.id,
+          price: product.price,
+          quantity: 1,
+          totalPrice: product.price * 1,
+          productTitle: product.title,
+          productThumnail: product.thumbnail,
+        },
+      })
+    );
   };
   return (
     <PageContainer>
@@ -23,10 +37,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ data }) => {
               {product.title} <span className="badge">{product.brand}</span>
             </h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
-
             <div className="card-actions justify-end">
               <p className="text-lg font-bold">{price}</p>
-              <button className="btn btn-primary">Buy Now</button>
+              <button onClick={buyNow} className="btn btn-primary">
+                Buy Now
+              </button>
             </div>
           </div>
         </div>
